@@ -1,4 +1,5 @@
 <?php
+chmod("dados.json", 0666);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arquivo = 'dados.json';
     
