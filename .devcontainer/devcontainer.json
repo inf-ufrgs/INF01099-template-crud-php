@@ -1,0 +1,6 @@
+{
+    "name": "PHP Dev Environment",
+    "image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
+    "forwardPorts": [8080],
+    "postCreateCommand": "sudo chmod -R 777 ."
+}
