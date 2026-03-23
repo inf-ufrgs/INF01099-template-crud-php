@@ -1,10 +1,12 @@
 <?php
+// Arquivo onde os dados serão salvos
 $arquivo = 'dados.json';
-// Garantir permissão de escrita no ambiente Linux/Codespaces
+
+// A linha seguinte garante permissão de escrita no ambiente Linux/Codespaces
 if(file_exists($arquivo)) chmod($arquivo, 0666);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Mapeamento idêntico ao DBschema.sql
+    // Atenção: garanta que esses dados cheguem preenchidos via JS!
     $nova_ref = [
         "Ref_type"    => $_POST['Ref_type'],
         "Ref_authors" => $_POST['Ref_authors'],
@@ -12,12 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "Ref_year"    => $_POST['Ref_year'],
         "Ref_URL"     => $_POST['Ref_url'] ?? "" 
     ];
-
-    $lista = json_decode(file_get_contents($arquivo), true) ?? [];
+    
+    // lógica de persistência
+    $conteudo = file_get_contents($arquivo);
+    $lista = json_decode($conteudo, true) ?? [];    
+    
     $lista[] = $nova_ref;
+    
     file_put_contents($arquivo, json_encode($lista, JSON_PRETTY_PRINT));
 
-    header("Location: listar.php"); // Redireciona direto para a lista
+    // redireciona para a lista de referências cadastradas
+    header("Location: listar.php"); 
     exit;
 }
 ?>
