@@ -15,10 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "Ref_URL"     => $_POST['Ref_url'] ?? "" 
     ];
     
-    // lógica de persistência
+    // lógica de persistência: abre arquivo, converte para lista
     $conteudo = file_get_contents($arquivo);
     $lista = json_decode($conteudo, true) ?? [];    
     
+    // adiciona uma nova referência (a que veio do formulário)
+    // não valida nada! Idealmente, fazer verificação para garantir que foi mandado certo.
     $lista[] = $nova_ref;
     
     file_put_contents($arquivo, json_encode($lista, JSON_PRETTY_PRINT));
