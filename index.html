@@ -57,8 +57,6 @@
 
     <script>
         $(document).ready(function() {
-            const anoAtual = new Date().getFullYear();
-
             // Lógica para mostrar/esconder URL se for "Site"
             $('#Ref_type').change(function() {
                 if ($(this).val() === 'Site') {
@@ -72,27 +70,10 @@
                 let valido = true;
                 $('.erro').hide();
 
-                // 1. Validação de Ano
-                const anoInformado = parseInt($('#Ref_year').val());
-                if (anoInformado > anoAtual) {
-                    $('#erroAno').show();
-                    valido = false;
-                }
-
-                // 2. Validação de Autores
-                const autoresRaw = $('#Ref_authors').val().trim();
-                const listaAutores = autoresRaw.split(',');
+                // IMPLEMENTAR AQUI:
+                // 1. Validação de Ano (Exercício 1)
+                // 2. Validação de Autores (Exercício 2)
                 
-                for (let autor of listaAutores) {
-                    let nomeLimpo = autor.trim();
-                    // Verifica se tem pelo menos um espaço (indicando nome e sobrenome)
-                    if (nomeLimpo === "" || nomeLimpo.split(' ').length < 2) {
-                        $('#erroAutor').show();
-                        valido = false;
-                        break;
-                    }
-                }
-
                 if (!valido) e.preventDefault();
             });
         });
