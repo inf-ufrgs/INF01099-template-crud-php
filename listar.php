@@ -1,18 +1,23 @@
 <?php
-$dados = json_decode(file_get_contents('dados.json'), true);
+$dados = json_decode(file_get_contents('dados.json'), true) ?? [];
 ?>
 <!DOCTYPE html>
-<html>
-<head><title>Lista de Referências</title></head>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Referências</title>
+    <style>table { width: 100%; border-collapse: collapse; } th, td { padding: 10px; border: 1px solid #ccc; }</style>
+</head>
 <body>
     <h2>Referências Cadastradas</h2>
-    <table border="1">
-        <tr><th>Título</th><th>Autor</th><th>Ano</th></tr>
-        <?php foreach ($dados as $item): ?>
+    <table>
+        <tr><th>Título</th><th>Autor</th><th>Ano</th><th>Ações</th></tr>
+        <?php foreach ($dados as $id => $item): ?>
             <tr>
-                <td><?php echo $item['titulo']; ?></td>
-                <td><?php echo $item['autor']; ?></td>
-                <td><?php echo $item['ano']; ?></td>
+                <td><?php echo htmlspecialchars($item['Ref_title']); ?></td>
+                <td><?php echo htmlspecialchars($item['Ref_authors']); ?></td>
+                <td><?php echo htmlspecialchars($item['Ref_year']); ?></td>
+                <td><a href="excluir.php?id=<?php echo $id; ?>" onclick="return confirm('Excluir?')">Remover</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
