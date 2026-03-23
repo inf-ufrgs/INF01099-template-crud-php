@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Referências Bibliográficas</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background: #f4f4f9; }
+        form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 600px; }
+        .campo { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        .erro { color: #d9534f; font-size: 0.9em; margin-top: 5px; display: none; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h2>Cadastrar Nova Publicação</h2>
+    <form id="formPub" action="salvar.php" method="POST">
+        
+        <div class="campo">
+            <label>Tipo de Referência:</label>
+            <select name="Ref_type" id="Ref_type" required>
+                <option value="">Selecione...</option>
+                <option value="Livro">Livro</option>
+                <option value="Artigo">Artigo</option>
+                <option value="Site">Site/Web</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Autores (Nome Sobrenome ou lista separada por vírgula):</label>
+            <input type="text" name="Ref_authors" id="Ref_authors" placeholder="Ex: João Silva, Maria Souza">
+            <div id="erroAutor" class="erro">Cada autor deve ter pelo menos nome e sobrenome.</div>
+        </div>
+
+        <div class="campo">
+            <label>Título:</label>
+            <input type="text" name="Ref_title" id="Ref_title">
+        </div>
+
+        <div class="campo">
+            <label>Ano de Publicação:</label>
+            <input type="number" name="Ref_year" id="Ref_year" placeholder="Ex: 2023">
+            <div id="erroAno" class="erro">O ano não pode ser maior que o atual.</div>
+        </div>
+
+        <div class="campo" id="divURL" style="display:none;">
+            <label>URL (Obrigatório para Site):</label>
+            <input type="url" name="Ref_url" id="Ref_url">
+        </div>
+
+        <button type="submit">Cadastrar Referência</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            const anoAtual = new Date().getFullYear();
+
+            // Lógica para mostrar/esconder URL se for "Site"
+            $('#Ref_type').change(function() {
+                if ($(this).val() === 'Site') {
+                    $('#divURL').slideDown();
+                } else {
+                    $('#divURL').slideUp();
+                }
+            });
+
+            $('#formPub').submit(function(e) {
+                let valido = true;
+                $('.erro').hide();
+
+                // 1. Validação de Ano
+                const anoInformado = parseInt($('#Ref_year').val());
+                if (anoInformado > anoAtual) {
+                    $('#erroAno').show();
+                    valido = false;
+                }
+
+                // 2. Validação de Autores
+                const autoresRaw = $('#Ref_authors').val().trim();
+                const listaAutores = autoresRaw.split(',');
+                
+                for (let autor of listaAutores) {
+                    let nomeLimpo = autor.trim();
+                    // Verifica se tem pelo menos um espaço (indicando nome e sobrenome)
+                    if (nomeLimpo === "" || nomeLimpo.split(' ').length < 2) {
+                        $('#erroAutor').show();
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if (!valido) e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
