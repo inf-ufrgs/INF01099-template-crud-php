@@ -32,7 +32,7 @@
 
         <div class="campo">
             <label>Autores (Nome Sobrenome ou lista separada por vírgula):</label>
-            <input type="text" name="Ref_authors" id="Ref_authors" placeholder="Ex: João Silva, Maria Souza">
+            <input type="text" name="Ref_authors" id="Ref_authors" placeholder="Ex: João Silva; Maria Souza">
             <div id="erroAutor" class="erro">Cada autor deve ter pelo menos nome e sobrenome.</div>
         </div>
 
@@ -72,7 +72,8 @@
 
                 // IMPLEMENTAR AQUI:
                 // 1. Validação de Ano (Exercício 1)
-                // 2. Validação de Autores (Exercício 2)
+                // 2. Validação de Autores (Exercício 1)
+                // 3. Validação de formulário vazio (Exercício 1)
                 
                 if (!valido) e.preventDefault();
             });

@@ -25,15 +25,22 @@ Não é necessário instalar nada em sua máquina local. Siga os passos abaixo:
 O desafio consiste em implementar as operações de criação, listagem e exclusão (CRUD) para referências bibliográficas (modelo simplificado).
 
 ### 1. Validação com jQuery (Client-Side)
-No arquivo `index.html`, implemente validações para impedir o envio se:
-* **Ano:** O valor não possuir 4 dígitos ou for maior que o ano atual (ou não for um número).
-* **Autores:** Deve aceitar nomes completos ou listas separadas por ponto-e-vírgula (`;`). Use Regex para validar se cada autor tem pelo menos duas palavras (Nome e Sobrenome).
+No arquivo `index.html`, implemente validações para *impedir o envio* se:
+* **Ano:** O valor não for um número, o valor for um número negativo, o valor não possuir 4 dígitos ou o valor do ano for maior que o ano atual.
+* **Autores:** Nomes não tiverem pelo menos duas palavras (Nome e Sobrenome) e, caso seja uma lista de nomes de autores, não estejam separados por ';' (ponto-e-vírgula). P.ex., Silva, João; Maria Souza
+* **Autores**, **Título** e **Ano** estiverem vazios. 
 
-### 2. Interface Dinâmica
+**Atenção**: 
+* autores podem ser cadastrados no formato "Sobrenome, Nome". Por isso o separador de nomes é ponto-e-vírgula.  
+* todos os campos são obrigatórios - 
+
+**Dica**: Use *regex* para validar!
+
+### 2. Interface Dinâmica - JÁ ESTÁ PRONTO
 * Implemente uma lógica onde, ao selecionar o tipo **"Site"** no combobox, o campo de **URL** apareça na tela.
 * O campo URL deve ser obrigatório apenas para o tipo "Site".
 
-### 3. Persistência com PHP (Server-Side)
+### 3. Persistência com PHP (Server-Side) - JÁ ESTÁ PRONTO
 * **Salvar:** O arquivo `salvar.php` deve receber os dados via POST e armazená-los no `dados.json`. Utilize chaves idênticas às do SQL (ex: `Ref_title`, `Ref_year`).
 * **Excluir:** O arquivo `excluir.php` deve processar a remoção de um item através do parâmetro `ID` recebido via GET.
 
