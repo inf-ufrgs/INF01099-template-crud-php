@@ -1,4 +1,5 @@
 <?php
+chmod("dados.json", 0666);
 // 1. Pegar o ID enviado via URL (?id=X)
 $id_para_remover = $_GET['id'];
 
